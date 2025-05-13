@@ -1,0 +1,36 @@
+{% extends 'index/base.html' %}
+
+{% block title %}История переводов{% endblock %}
+
+{% block content %}
+<div class="p-3 mt-4 bg-body-tertiary rounded-3 border bg-opacity-50">
+    <h2>История переводов</h2>
+    <p><strong>Вы:</strong> {{ user.name }}</p>
+
+    <h4 class="mt-3">Исходящие переводы</h4>
+    {% if sent %}
+        <ul class="list-group">
+        {% for t in sent %}
+            <li class="list-group-item">
+                → {{ t.receiver.name }}: {{ t.amount }} ₽ ({{ t.timestamp|date:"d.m.Y H:i" }})
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет исходящих переводов.</p>
+    {% endif %}
+
+    <h4 class="mt-4">Входящие переводы</h4>
+    {% if received %}
+        <ul class="list-group">
+        {% for t in received %}
+            <li class="list-group-item">
+                ← {{ t.sender.name }}: {{ t.amount }} ₽ ({{ t.timestamp|date:"d.m.Y H:i" }})
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет входящих переводов.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'index/base.html' %}
+
+{% block title %}
+Информация об аккаунте
+{% endblock %}
+
+{% block content %}
+<div class="p-3 pb-1 mt-4 bg-body-tertiary rounded-3 border bg-opacity-50">
+    <p><strong>Имя:</strong> {{ user.name }}</p>
+    <p><strong>Пароль:</strong> {{ user.password }}</p>
+    <p><strong>Номер счёта:</strong> {{ user.id }}</p>
+    <p><strong>Баланс:</strong> {{ user.money }}</p>
+</div>
+<form method="post" id="moneyForm">
+    {% csrf_token %}
+    <input type="hidden" name="amount" id="amountInput">
+    <br>
+    <button type="button" class="btn btn-success" onclick="addMoney()">Положить деньги на счёт</button>
+</form>
+<script>
+function addMoney() {
+    let amount = prompt("Введите сумму:");
+    if (amount && !isNaN(amount)) {
+        document.getElementById("amountInput").value = amount;
+        document.getElementById("moneyForm").submit();
+    } else {
+        alert("Введите корректную сумму.");
+    }
+}
+</script>
+{% endblock %}
